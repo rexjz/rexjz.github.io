@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"rexjz.github.io.","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="AssemblyRegisterthe assembly language directly manage the data in registers. Multiple register exists in a processor, they have different names and functions. 32-bit General-Purpose Registers:x86 arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="assembly">
+<meta property="og:url" content="https://rexjz.github.io./2020/11/16/assembly/index.html">
+<meta property="og:site_name" content="rexjz&#39;s pathway">
+<meta property="og:description" content="AssemblyRegisterthe assembly language directly manage the data in registers. Multiple register exists in a processor, they have different names and functions. 32-bit General-Purpose Registers:x86 arch">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/blck8088-1602480464531.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232501094.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232659025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232714426.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232725607.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150304418.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150150917.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150238321.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150415210.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150433813.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151433065.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151509400.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151835363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151855746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012152326137.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012152710511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-2020101600223.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-2020101600233.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002449852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002606091.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002711173.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016003122647.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016003128678.png">
+<meta property="article:published_time" content="2020-11-16T15:11:49.000Z">
+<meta property="article:modified_time" content="2020-11-16T15:13:24.626Z">
+<meta property="article:author" content="rexjz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/blck8088-1602480464531.gif">
+
+<link rel="canonical" href="https://rexjz.github.io./2020/11/16/assembly/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>assembly | rexjz's pathway</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">rexjz's pathway</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">time and tide with for no man</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rexjz.github.io./2020/11/16/assembly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://i.loli.net/2020/11/16/My6AqzFlmr3kNSv.png">
+      <meta itemprop="name" content="rexjz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="rexjz's pathway">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          assembly
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-16 23:11:49 / Modified: 23:13:24" itemprop="dateCreated datePublished" datetime="2020-11-16T23:11:49+08:00">2020-11-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Assembly"><a href="#Assembly" class="headerlink" title="Assembly"></a>Assembly</h1><h2 id="Register"><a href="#Register" class="headerlink" title="Register"></a>Register</h2><p>the assembly language directly manage the data in registers. Multiple register exists in a processor, they have different names and functions.</p>
+<h3 id="32-bit-General-Purpose-Registers"><a href="#32-bit-General-Purpose-Registers" class="headerlink" title="32-bit General-Purpose Registers:"></a>32-bit General-Purpose Registers:</h3><p>x86 architecture is developed based on 8086/8088  architecture, 8086/8088 is a revolutionary CPU architecture because it first applied Instruction pipeline, which fully makes use of the IO resource of system bus, increasing the overall efficiency. The 8086/8088 architecture divide the CPU into two parts: Execution Unit and Bus Interference Unit. </p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/blck8088-1602480464531.gif" alt="blck8088"></p>
+<p>You will find the name of registers are mostly similar, the character E in EAX EBX… means “Extended”.</p>
+<p>the <strong>general-purpose</strong> that though some registers are implicitly assigned with specialised functions (for example, CX will be implicitly used as the storage place of loop count), at most time, all the registers can be accessed freely and are generic.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232501094.png" alt="image-20201004232501094"></p>
+<p>to Accessing Parts of Registers,  we give parts within a 32-bit general purpose register unique name.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232659025.png" alt="image-20201004232659025"></p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232714426.png" alt="image-20201004232714426"></p>
+<p>Some registers have only a 16-bit name for their lower half:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201004232725607.png" alt="image-20201004232725607"></p>
+<h3 id="Some-Specialised-Register-Uses"><a href="#Some-Specialised-Register-Uses" class="headerlink" title="Some Specialised Register Uses"></a>Some Specialised Register Uses</h3><p><strong>General-Purpose:</strong></p>
+<ul>
+<li><p>EAX – accumulator</p>
+</li>
+<li><p>ECX – loop counter</p>
+</li>
+<li><p>ESP – stack pointer</p>
+</li>
+<li><p>ESI, EDI – index registers</p>
+</li>
+<li><p>EBP – extended frame pointer (stack)</p>
+</li>
+</ul>
+<p><strong>Segment:</strong></p>
+<ul>
+<li><p>CS – code segment</p>
+</li>
+<li><p>DS – data segment</p>
+</li>
+<li><p>SS – stack segment</p>
+</li>
+<li><p>ES, FS, GS - additional segments</p>
+</li>
+</ul>
+<p><strong>EIP – instruction pointer</strong></p>
+<ul>
+<li>EIP stores offset value, the sum of EIP and the value of corresponding  segment register is the actual address. </li>
+</ul>
+<p><strong>EFLAGS : status and control flags, each flag is a single binary bit</strong></p>
+<ul>
+<li>each bit of EFLAGS is defined separately, denoting different meanings.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Assembly Name</th>
+<th>Reg #</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EAX</td>
+<td>000</td>
+</tr>
+<tr>
+<td>EBX</td>
+<td>001</td>
+</tr>
+<tr>
+<td>ECX</td>
+<td>010</td>
+</tr>
+<tr>
+<td>EDX</td>
+<td>011</td>
+</tr>
+<tr>
+<td>ESP</td>
+<td>100</td>
+</tr>
+<tr>
+<td>EDP</td>
+<td>101</td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>110</td>
+</tr>
+<tr>
+<td>EDI</td>
+<td>111</td>
+</tr>
+</tbody></table>
+<ul>
+<li>When operating on 16-bit data, the 7 register numbers (000 – 111) refers to AX, BX, CX, DX, SP, BP, SI and DI. </li>
+<li>When operating on 8-bit data, the 7 register numbers (000 – 111) refers to AL, CL, DL, BL, AH, CL, DH and BL. </li>
+<li>Data width is specified by the opcode</li>
+</ul>
+<h4 id="Flag-Register"><a href="#Flag-Register" class="headerlink" title="Flag Register"></a>Flag Register</h4><p>The ALU has a number of status flags that reflect the outcome of arithmetic (and bitwise) operations</p>
+<ul>
+<li>based on the contents of the destination operand</li>
+</ul>
+<p>Essential flags:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150304418.png" alt="image-20201012150304418"></p>
+<ul>
+<li><p>Zero flag – set when destination equals zero</p>
+</li>
+<li><p>Sign flag – set when destination is negative</p>
+</li>
+<li><p>Carry flag – set when unsigned value is out of range</p>
+</li>
+<li><p>Overflow flag – set when signed value is out of range</p>
+</li>
+<li><p>The MOV instruction never affects the flags.</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150150917.png" alt="image-20201012150150917"></p>
+<h5 id="Zero-Flag"><a href="#Zero-Flag" class="headerlink" title="Zero Flag"></a>Zero Flag</h5><p>The Zero flag is set when the result of an operation produces zero in the destination operand. (all the bits in the destination are zero)</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150238321.png" alt="image-20201012150238321"></p>
+<h5 id="Sign-Flag-SF"><a href="#Sign-Flag-SF" class="headerlink" title="Sign Flag (SF)"></a>Sign Flag (SF)</h5><p>The Sign flag is set when the destination operand is negative. The flag is clear when the destination is positive. </p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150415210.png" alt="image-20201012150415210"></p>
+<p>The sign flag is a copy of the destination’s highest bit:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012150433813.png" alt="image-20201012150433813"></p>
+<p><strong>What about unsigned number?</strong></p>
+<h2 id="Instructions-Set"><a href="#Instructions-Set" class="headerlink" title="Instructions Set"></a>Instructions Set</h2><p>the compiling language is the abstraction of CPU instructions (Machine Language).</p>
+<p>The components of Assembly language is Instructions Set.</p>
+<h3 id="Assembly-Data-Type"><a href="#Assembly-Data-Type" class="headerlink" title="Assembly Data Type"></a>Assembly Data Type</h3><p>In Assembly language, there are no distinct data types like char,string,int,float,double,etc Instead there are very basic data types according to their sizes. They are:</p>
+<ol>
+<li>byte – 8 bits</li>
+<li>word – 16 bits</li>
+<li>dword – 32 bits</li>
+<li>qword – 64 bits</li>
+<li>Real4 – 32 bit float</li>
+<li>Real8 – 64 bit float</li>
+<li>Real10 – 80 bit float</li>
+</ol>
+<h3 id="A-piece-of-instruction-contains"><a href="#A-piece-of-instruction-contains" class="headerlink" title="A piece of instruction contains:"></a>A piece of instruction contains:</h3><h4 id="Label-optional"><a href="#Label-optional" class="headerlink" title="Label (optional)"></a>Label (optional)</h4><p>Act as place markers:</p>
+<ul>
+<li>marks the address (offset) of code and data</li>
+</ul>
+<p>Follow identifer rules</p>
+<p>Data label:</p>
+<ul>
+<li><p>must be unique</p>
+</li>
+<li><p>example: <strong>myArray</strong> (not followed by colon)</p>
+</li>
+</ul>
+<p>Code label:</p>
+<ul>
+<li><p>target of jump and loop instructions</p>
+</li>
+<li><p>example: <strong>L1:</strong> (followed by colon)</p>
+</li>
+</ul>
+<h4 id="Mnemonic-required-助记符"><a href="#Mnemonic-required-助记符" class="headerlink" title="Mnemonic (required)  助记符"></a>Mnemonic (required)  助记符</h4><p>Instruction Mnemonics:</p>
+<ul>
+<li><p>memory aid</p>
+</li>
+<li><p>examples: MOV, ADD, SUB, MUL, INC, DEC</p>
+</li>
+</ul>
+<p><strong>Operand (depends on the instruction)</strong></p>
+<p>Operands include:</p>
+<ul>
+<li><p>constant</p>
+</li>
+<li><p>constant expression</p>
+</li>
+<li><p>register</p>
+</li>
+<li><p>memory (data label)</p>
+</li>
+</ul>
+<blockquote>
+<p>Constants and constant expressions are often called immediate values</p>
+</blockquote>
+<p><strong>Comment (optional)</strong></p>
+<p>comments are good.</p>
+<h3 id="Specific-Instruction"><a href="#Specific-Instruction" class="headerlink" title="Specific Instruction"></a>Specific Instruction</h3><h4 id="template-of-a-asm-file"><a href="#template-of-a-asm-file" class="headerlink" title="template of a asm file"></a>template of a asm file</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.386</span><br><span class="line">.model flat,stdcall</span><br><span class="line"></span><br><span class="line">.data</span><br><span class="line">ExitProcess proto, dxExitcode:dword</span><br><span class="line"></span><br><span class="line">.code</span><br><span class="line">main PROC</span><br><span class="line">	</span><br><span class="line">	invoke ExitProcess,0</span><br><span class="line">main ENDP</span><br><span class="line">END main</span><br></pre></td></tr></table></figure>
+
+<h4 id="mov"><a href="#mov" class="headerlink" title="mov"></a>mov</h4><ul>
+<li><strong>Move from source to destination.</strong>: <code>MOV destination,source</code></li>
+<li><strong>0 or 1 operand permitted.</strong>:</li>
+<li><strong>CS, EIP, and IP cannot be the destination</strong></li>
+<li><strong>No immediate vaules to segment registers moves</strong></li>
+</ul>
+<blockquote>
+<p>before data manipulation, you should start your data definition part with symbol <code>.data</code>  </p>
+<p>after data definition part, start your code with symbol <code>.code</code></p>
+</blockquote>
+<h4 id="movzx-mov-with-zero-extension"><a href="#movzx-mov-with-zero-extension" class="headerlink" title="movzx: mov with zero extension"></a>movzx: mov with zero extension</h4><p>When you copy a smaller (space) value into a larger (space) destination, the MOVZX instruction fills (extends) the upper half of the destination with zeros.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov bl,10001111b</span><br><span class="line">movzx ax,bl	; zero-extension</span><br></pre></td></tr></table></figure>
+
+<h4 id="movsx-mov-with-sign-extension"><a href="#movsx-mov-with-sign-extension" class="headerlink" title="movsx: mov with sign extension"></a>movsx: mov with sign extension</h4><p>The MOVSX instruction fills the upper half of the destination with a copy of the source operand’s sign bit.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov bl,10001111b</span><br><span class="line">movsx ax,bl	; sign extension</span><br></pre></td></tr></table></figure>
+
+<h4 id="xchg-exchange"><a href="#xchg-exchange" class="headerlink" title="xchg: exchange"></a>xchg: exchange</h4><p>XCHG exchanges the values of two operands. At least one operand must be a register. No immediate operands are permitted.</p>
+<p><strong>It is Illegal to exchange the value of two data label.</strong> Exchange can only happens between label and reg or two regs.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">var1 WORD 1000h</span><br><span class="line">var2 WORD 2000h</span><br><span class="line">.code</span><br><span class="line">xchg ax,bx	; exchange 16-bit regs</span><br><span class="line">xchg ah,al	; exchange 8-bit regs</span><br><span class="line">xchg var1,bx	; exchange mem, reg</span><br><span class="line">xchg eax,ebx	; exchange 32-bit regs</span><br></pre></td></tr></table></figure>
+
+<h4 id="inc-and-dec"><a href="#inc-and-dec" class="headerlink" title="inc and dec:"></a>inc and dec:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">myWord  WORD 1000h</span><br><span class="line">myDword DWORD 10000000h</span><br><span class="line">.code</span><br><span class="line">	inc myWord 	; 1001h</span><br><span class="line">	dec myWord	; 1000h</span><br><span class="line">	inc myDword	; 10000001h</span><br><span class="line"></span><br><span class="line">	mov ax,00FFh</span><br><span class="line">	inc ax	; AX &#x3D; 0100h</span><br><span class="line">	mov ax,00FFh</span><br><span class="line">	inc al	; AX &#x3D; 0000h</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>number ending with h means Hexadecimal</p>
+</blockquote>
+<h4 id="add-and-sub"><a href="#add-and-sub" class="headerlink" title="add and sub"></a>add and sub</h4><p><strong>add:</strong> add the second operand to the first operand, the first operand can’t be immediate.</p>
+<p><strong>sub</strong>: decrease the first operand by the second operand, the first operand can’t be immediate.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line"></span><br><span class="line">var1 DWORD 10000h</span><br><span class="line"></span><br><span class="line">var2 DWORD 20000h</span><br><span class="line"></span><br><span class="line">.code ; ---EAX---</span><br><span class="line"></span><br><span class="line"> mov eax,var1 ; 00010000h</span><br><span class="line"></span><br><span class="line"> add eax,var2  ; 00030000h</span><br><span class="line"></span><br><span class="line"> add ax,0FFFFh ; 0003FFFFh</span><br><span class="line"></span><br><span class="line"> add eax,1 ; 00040000h</span><br><span class="line"></span><br><span class="line"> sub ax,1 ; 0004FFFFh</span><br></pre></td></tr></table></figure>
+
+<h4 id="neg"><a href="#neg" class="headerlink" title="neg"></a>neg</h4><p>Reverses the sign of an operand. Operand can be a register or memory operand.</p>
+<p>The processor implements NEG using the following internal operation:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUB 0,operand</span><br></pre></td></tr></table></figure>
+
+<p>Any nonzero operand causes the Carry flag to be set.</p>
+<p><strong>when the operand is brainy, it will not be considered as complement code by the assembler</strong>.</p>
+<h3 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h3><h4 id="OFFSET"><a href="#OFFSET" class="headerlink" title="OFFSET"></a>OFFSET</h4><p>OFFSET returns the distance in bytes, of a label from the beginning of its enclosing segment (Address - beginning address of segment).</p>
+<ul>
+<li><p>Protected mode: 32 bits</p>
+</li>
+<li><p>Real mode: 16 bits</p>
+</li>
+</ul>
+<blockquote>
+<p>The Protected-mode programs we write use only a single segment (flat memory model).</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151433065.png" alt="image-20201012151433065"></p>
+<p>Let’s assume that the data segment begins at 00404000h:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151509400.png" alt="image-20201012151509400"></p>
+<p>The value returned by OFFSET is a pointer. Compare the following code written for both C++ and assembly language:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ version:</span></span><br><span class="line"><span class="keyword">char</span> <span class="built_in">array</span>[<span class="number">1000</span>];</span><br><span class="line"><span class="keyword">char</span> * p = <span class="built_in">array</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">; Assembly language:</span><br><span class="line">.data</span><br><span class="line">array BYTE 1000 DUP(?)</span><br><span class="line">.code</span><br><span class="line">mov	esi,OFFSET array</span><br></pre></td></tr></table></figure>
+
+<h4 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h4><p>The <code>TYPE</code> operator returns the size, in bytes, of a single element of a data declaration.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151835363.png" alt="image-20201012151835363"></p>
+<h4 id="LENGTHOF"><a href="#LENGTHOF" class="headerlink" title="LENGTHOF"></a>LENGTHOF</h4><p>The <code>LENGTHOF</code> operator counts the number of elements in a single data declaration.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012151855746.png" alt="image-20201012151855746"></p>
+<h3 id="Data-Declaration"><a href="#Data-Declaration" class="headerlink" title="Data Declaration"></a>Data Declaration</h3><p>A data declaration spans multiple lines if each line (except the last) ends with a comma. The <code>LENGTHOF</code> and <code>SIZEOF</code> operators include all lines belonging to the declaration:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012152326137.png" alt="image-20201012152326137"></p>
+<p>In the following example, array identifies only the first WORD declaration. Compare the values returned by <code>LENGTHOF</code> and <code>SIZEOF</code> here to those in the previous slide:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201012152710511.png" alt="image-20201012152710511"></p>
+<h4 id="LABEL-Directive"><a href="#LABEL-Directive" class="headerlink" title="LABEL Directive"></a>LABEL Directive</h4><p>In the following example, we declare a label just before <code>val32</code> named <code>val16</code> and give it a WORD attribute:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">val16 LABEL WORD</span><br><span class="line">val32 DWORD 12345678h</span><br><span class="line">.code</span><br><span class="line">mov ax,val16 ; AX &#x3D; 5678h</span><br><span class="line">mov dx,[val16+2] ; DX &#x3D; 1234h</span><br></pre></td></tr></table></figure>
+
+<p>val16 is an alias for the same storage location as val32. The LABEL directive itself allocates no storage. (Like the union in c)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">dwList   LABEL DWORD</span><br><span class="line">wordList LABEL WORD</span><br><span class="line">intList  BYTE 00h,10h,00h,20h</span><br><span class="line">.code</span><br><span class="line">mov eax,dwList	; 20001000h</span><br><span class="line">mov cx,wordList	; 1000h</span><br><span class="line">mov dl,intList	; 00h</span><br></pre></td></tr></table></figure>
+
+<h3 id="Looping"><a href="#Looping" class="headerlink" title="Looping"></a>Looping</h3><h4 id="JMP-Instruction"><a href="#JMP-Instruction" class="headerlink" title="JMP Instruction"></a><code>JMP</code> Instruction</h4><p><code>JMP</code> is an unconditional jump to a label that is usually within the same procedure.</p>
+<p>Syntax: <code>JMP target</code></p>
+<p>Logic: <code>EIP</code> &lt;- target</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">top:</span><br><span class="line">	.</span><br><span class="line">	.</span><br><span class="line">	jmp top</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>A jump outside the current procedure must be to a special type of label called a <strong>global label</strong> (see Section 5.5.2.3 for details).</p>
+</blockquote>
+<h4 id="LOOP-Instruction"><a href="#LOOP-Instruction" class="headerlink" title="LOOP Instruction"></a><code>LOOP</code> Instruction</h4><p>The LOOP instruction creates a counting loop, <code>LOOP</code> is repeated <code>JMP</code></p>
+<p>Syntax: LOOP <em>target</em></p>
+<p>Logic:</p>
+<p><code>ECX</code> &lt;- <code>ECX</code> – 1</p>
+<p>if <code>ECX != 0</code>, jump to <em>target</em></p>
+<p>Implementation: </p>
+<p>The assembler calculates the distance, in bytes, between the offset of the following instruction and the offset of the target label. It is called the relative offset.</p>
+<p><strong>?</strong>: The relative offset is added to <code>EIP</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0</span><br><span class="line">mov ecx,5</span><br><span class="line"></span><br><span class="line">L1:add ax,cx</span><br><span class="line">	loop L1</span><br></pre></td></tr></table></figure>
+
+<p>the code above calculate  <code>5 + 4 + 3 + 2 + 1</code></p>
+<p><strong>Example: Summing an Integer Array:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">intarray WORD 100h,200h,300h,400h</span><br><span class="line">.code</span><br><span class="line">mov edi,OFFSET intarray;address of intarray</span><br><span class="line">mov ecx,LENGTHOF intarray	;loop counter</span><br><span class="line">mov ax,0;zero the accumulator</span><br><span class="line">L1:</span><br><span class="line">	add ax,[edi];add an integer, [edi] means get the value edi points to</span><br><span class="line">	add edi,TYPE intarray;point to next integer</span><br><span class="line">	loop L1;repeat until ECX &#x3D; 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example: Copying a String</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">source  BYTE  &quot;This is the source string&quot;,0</span><br><span class="line">target  BYTE  SIZEOF source DUP(0)</span><br><span class="line"></span><br><span class="line">.code</span><br><span class="line">	mov  esi,0		; index register</span><br><span class="line">	mov  ecx,SIZEOF source		; loop counter</span><br><span class="line">L1:</span><br><span class="line">	mov  al,source[esi]		; get char from source</span><br><span class="line">	mov  target[esi],al		; store it in the target</span><br><span class="line">	inc  esi		; move to next character</span><br><span class="line">	loop L1		; repeat for entire string</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Nested-Loop"><a href="#Nested-Loop" class="headerlink" title="Nested Loop"></a>Nested Loop</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">count DWORD ?</span><br><span class="line">.code</span><br><span class="line">	mov ecx,100	; set outer loop count</span><br><span class="line">L1:</span><br><span class="line">	mov count,ecx	; save outer loop count</span><br><span class="line">	mov ecx,20	; set inner loop count</span><br><span class="line">L2:	.</span><br><span class="line">		.</span><br><span class="line">	loop L2	; repeat the inner loop</span><br><span class="line">	mov ecx,count	; restore outer loop count</span><br><span class="line">	loop L1	; repeat the outer loop</span><br></pre></td></tr></table></figure>
+
+<h3 id="Stack-Operations"><a href="#Stack-Operations" class="headerlink" title="Stack Operations"></a>Stack Operations</h3><h4 id="Runtime-Stack"><a href="#Runtime-Stack" class="headerlink" title="Runtime Stack"></a>Runtime Stack</h4><p>Managed by the CPU, using two registers</p>
+<ul>
+<li><p>SS (stack segment)</p>
+</li>
+<li><p>ESP (stack pointer) *</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-2020101600223.png" alt="image-20201016002239573"></p>
+<blockquote>
+<p>*SP in Real-address mode</p>
+</blockquote>
+<h4 id="PUSH"><a href="#PUSH" class="headerlink" title="PUSH"></a>PUSH</h4><p>32-bit push operation decrements the stack pointer by 4 and copies a value into the location pointed to by the stack pointer.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-2020101600233.png" alt="image-20201016002332326"></p>
+<p>The stack grows downward. The area below ESP is always available (unless the stack has overflowed).</p>
+<h4 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h4><ul>
+<li><p>Copies value at stack[ESP] into a register or variable.</p>
+</li>
+<li><p>Adds <em>n</em> to ESP, where <em>n</em> is either 2 or 4.</p>
+<ul>
+<li>value of <em>n</em> depends on the attribute of the operand receiving the data</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002449852.png" alt="image-20201016002449852"></p>
+<p>PUSH syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PUSH r/m16</span><br><span class="line">PUSH r/m32</span><br><span class="line">PUSH imm32</span><br></pre></td></tr></table></figure>
+
+<p>POP syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POP r/m16</span><br><span class="line">POP r/m32</span><br></pre></td></tr></table></figure>
+
+<h4 id="Using-PUSH-and-POP"><a href="#Using-PUSH-and-POP" class="headerlink" title="Using PUSH and POP"></a>Using PUSH and POP</h4><p>Save and restore registers when they contain important values. PUSH and POP instructions occur in the opposite order.</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002606091.png" alt="image-20201016002606091"></p>
+<p><strong>Example: Nested Loop</strong> ：When creating a nested loop, push the outer loop counter before entering the inner loop:</p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016002711173.png" alt="image-20201016002711173"></p>
+<h3 id="Flow-Control-Instruction"><a href="#Flow-Control-Instruction" class="headerlink" title="Flow Control Instruction"></a>Flow Control Instruction</h3><h4 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h4><h4 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h4><h4 id="Conditional-Jumps"><a href="#Conditional-Jumps" class="headerlink" title="Conditional Jumps"></a>Conditional Jumps</h4><h4 id="J-cond"><a href="#J-cond" class="headerlink" title="$J_{cond}$"></a>$J_{cond}$</h4><p>A conditional jump instruction branches to a label when specific register or flag conditions are met</p>
+<p>Specific jumps:</p>
+<ul>
+<li><p>JB, JC - jump to a label if the Carry flag is set</p>
+</li>
+<li><p>JE, JZ - jump to a label if the Zero flag is set</p>
+</li>
+<li><p>JS - jump to a label if the Sign flag is set</p>
+</li>
+<li><p>JNE, JNZ - jump to a label if the Zero flag is clear</p>
+</li>
+<li><p>JECXZ - jump to a label if ECX = 0</p>
+</li>
+</ul>
+<p><strong>J<em>cond</em> Ranges:</strong></p>
+<ul>
+<li><p>Prior to the 386:</p>
+<ul>
+<li>jump must be within –128 to +127 bytes from current location counter</li>
+</ul>
+</li>
+<li><p>x86 processors:</p>
+<ul>
+<li>32-bit offset permits jump anywhere in memory</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016003122647.png" alt="image-20201016003122647"></p>
+<p><img src="https://raw.githubusercontent.com/rexjz/MarkDownImg/main/image-20201016003128678.png" alt="image-20201016003128678"></p>
+<p>![image-20201016003134155](E:\Typora image\image-20201016003134155.png)</p>
+<p>![image-20201016003137938](E:\Typora image\image-20201016003137938.png)</p>
+<h4 id="Conditional-Loop-Instructions"><a href="#Conditional-Loop-Instructions" class="headerlink" title="Conditional Loop Instructions"></a>Conditional Loop Instructions</h4><h4 id="LOOPZ-and-LOOPE"><a href="#LOOPZ-and-LOOPE" class="headerlink" title="LOOPZ and LOOPE"></a>LOOPZ and LOOPE</h4><p>Syntax: </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LOOPE destination</span><br><span class="line"></span><br><span class="line">LOOPZ destination</span><br></pre></td></tr></table></figure>
+
+<p>Logic: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECX &lt;- ECX – 1</span><br><span class="line"></span><br><span class="line">if ECX &gt; 0 and ZF&#x3D;1, jump to destination</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> Useful when scanning an array for the first element that does not match a given value.</p>
+</blockquote>
+<blockquote>
+<p>In 32-bit mode, ECX is the loop counter register. In 16-bit real-address mode, CX is the counter, and in 64-bit mode, RCX is the counter.</p>
+</blockquote>
+<h4 id="LOOPNZ-and-LOOPNE"><a href="#LOOPNZ-and-LOOPNE" class="headerlink" title="LOOPNZ and LOOPNE"></a>LOOPNZ and LOOPNE</h4><p>LOOPNZ (LOOPNE) is a conditional loop instruction</p>
+<p>Syntax: </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LOOPNZ destination</span><br><span class="line"></span><br><span class="line">LOOPNE destination</span><br></pre></td></tr></table></figure>
+
+<p>Logic: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECX &lt;- ECX – 1; </span><br><span class="line"></span><br><span class="line">if ECX &gt; 0 and ZF&#x3D;0, jump to destination</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Useful when scanning an array for the first element that matches a given value.</p>
+</blockquote>
+<p><strong>LOOPNZ Example</strong>: The following code finds the first positive value in an array</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">array SWORD -3,-6,-1,-10,10,30,40,4</span><br><span class="line">sentinel SWORD 0</span><br><span class="line">.code</span><br><span class="line">	mov esi,OFFSET array</span><br><span class="line">	mov ecx,LENGTHOF array</span><br><span class="line">next:</span><br><span class="line">	test WORD PTR [esi],8000h	; test sign bit</span><br><span class="line">	pushfd	; push flags on stack</span><br><span class="line">	add esi,TYPE array</span><br><span class="line">	popfd	; pop flags from stack</span><br><span class="line">	loopnz next	; continue loop</span><br><span class="line">	jnz quit	; none found</span><br><span class="line">	sub esi,TYPE array	; ESI points to value</span><br><span class="line">quit:</span><br></pre></td></tr></table></figure>
+
+<p><strong>Comparing Arrays</strong>: Use a REPE (repeat while equal) prefix to compare corresponding elements of two arrays.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">source DWORD COUNT DUP(?)</span><br><span class="line">target DWORD COUNT DUP(?)</span><br><span class="line">.code</span><br><span class="line">	mov ecx,COUNT	; repetition count</span><br><span class="line">	mov esi,OFFSET source</span><br><span class="line">	mov edi,OFFSET target</span><br><span class="line">	cld		; direction &#x3D; forward</span><br><span class="line">	repe cmpsd	; repeat while equal</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/11/io/" rel="prev" title="io">
+      <i class="fa fa-chevron-left"></i> io
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Assembly"><span class="nav-number">1.</span> <span class="nav-text">Assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Register"><span class="nav-number">1.1.</span> <span class="nav-text">Register</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32-bit-General-Purpose-Registers"><span class="nav-number">1.1.1.</span> <span class="nav-text">32-bit General-Purpose Registers:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Some-Specialised-Register-Uses"><span class="nav-number">1.1.2.</span> <span class="nav-text">Some Specialised Register Uses</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flag-Register"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Flag Register</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Zero-Flag"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">Zero Flag</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Sign-Flag-SF"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">Sign Flag (SF)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instructions-Set"><span class="nav-number">1.2.</span> <span class="nav-text">Instructions Set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Assembly-Data-Type"><span class="nav-number">1.2.1.</span> <span class="nav-text">Assembly Data Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-piece-of-instruction-contains"><span class="nav-number">1.2.2.</span> <span class="nav-text">A piece of instruction contains:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Label-optional"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Label (optional)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mnemonic-required-%E5%8A%A9%E8%AE%B0%E7%AC%A6"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Mnemonic (required)  助记符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Specific-Instruction"><span class="nav-number">1.2.3.</span> <span class="nav-text">Specific Instruction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#template-of-a-asm-file"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">template of a asm file</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mov"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">mov</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#movzx-mov-with-zero-extension"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">movzx: mov with zero extension</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#movsx-mov-with-sign-extension"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">movsx: mov with sign extension</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xchg-exchange"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">xchg: exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inc-and-dec"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">inc and dec:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-and-sub"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">add and sub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#neg"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">neg</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operator"><span class="nav-number">1.2.4.</span> <span class="nav-text">Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OFFSET"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">OFFSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TYPE"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">TYPE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LENGTHOF"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">LENGTHOF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Declaration"><span class="nav-number">1.2.5.</span> <span class="nav-text">Data Declaration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LABEL-Directive"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">LABEL Directive</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Looping"><span class="nav-number">1.2.6.</span> <span class="nav-text">Looping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JMP-Instruction"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">JMP Instruction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LOOP-Instruction"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">LOOP Instruction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nested-Loop"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">Nested Loop</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-Operations"><span class="nav-number">1.2.7.</span> <span class="nav-text">Stack Operations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Runtime-Stack"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">Runtime Stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUSH"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">PUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POP"><span class="nav-number">1.2.7.3.</span> <span class="nav-text">POP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-PUSH-and-POP"><span class="nav-number">1.2.7.4.</span> <span class="nav-text">Using PUSH and POP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow-Control-Instruction"><span class="nav-number">1.2.8.</span> <span class="nav-text">Flow Control Instruction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TEST"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">TEST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMP"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">CMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conditional-Jumps"><span class="nav-number">1.2.8.3.</span> <span class="nav-text">Conditional Jumps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J-cond"><span class="nav-number">1.2.8.4.</span> <span class="nav-text">$J_{cond}$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conditional-Loop-Instructions"><span class="nav-number">1.2.8.5.</span> <span class="nav-text">Conditional Loop Instructions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LOOPZ-and-LOOPE"><span class="nav-number">1.2.8.6.</span> <span class="nav-text">LOOPZ and LOOPE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LOOPNZ-and-LOOPNE"><span class="nav-number">1.2.8.7.</span> <span class="nav-text">LOOPNZ and LOOPNE</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rexjz"
+      src="https://i.loli.net/2020/11/16/My6AqzFlmr3kNSv.png">
+  <p class="site-author-name" itemprop="name">rexjz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rexjz</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
