@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.css",
-	"sourceRoot": "D:/workspace2/hugo-arcana/exampleSite",
+	"sourceRoot": "D:/workspace2/meatamind-web",
 	"sources": [
 		"themes/hugo-arcana/assets/sass/main.scss",
 		"themes/hugo-arcana/assets/sass/libs/_vars.scss",
