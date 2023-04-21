@@ -1,4 +1,4 @@
-const cardStatusMap = {}
+var cardStatusMap = {}
 
 const cardPerRow = 4
 const columnGap = 96
@@ -24,8 +24,16 @@ function cardOnClick(event,target, id) {
 	if(activeCardID) {
 		console.log('cardStatusMap[activeCardID].originalPosition', cardStatusMap[activeCardID].originalPosition)
 		let tween = new TWEEN.Tween(cardStatusMap[activeCardID].css3Object.position)
-		.to(cardStatusMap[activeCardID].originalPosition,1500)
+		.to(cardStatusMap[activeCardID].originalPosition,1000)
 		.easing( TWEEN.Easing.Exponential.InOut )
+		const styleForUpdate = { width: 400 }
+		let sizeTweenBack = new TWEEN.Tween( styleForUpdate )
+		.to({ ...cardStatusMap[activeCardID].originalStyle }, 500)
+		.easing( TWEEN.Easing.Elastic.InOut )
+		.onUpdate(function() {
+			upateCardStyle(activeCardID, styleForUpdate)
+		})
+		sizeTweenBack.start()
 		tween.start()
 		cardStatusMap[activeCardID].active = false
 	} else {
@@ -33,12 +41,30 @@ function cardOnClick(event,target, id) {
 		let tween=new TWEEN.Tween( target.position )
 		.to( { x:0, y:0, z:300 },1000)
 		.easing( TWEEN.Easing.Exponential.InOut )
-		tween.start()
+		console.log(`cardStatusMap[id].originalStyle`, cardStatusMap[id].originalStyle)
+		const styleForUpdate = {...cardStatusMap[id].originalStyle}
+		let sizeTween = new TWEEN.Tween(styleForUpdate)
+		.to({ width: 400 }, 500)
+		.easing( TWEEN.Easing.Elastic.InOut )
+		.onUpdate(function(current) {
+			upateCardStyle(id, styleForUpdate)
+		})
+		tween.chain(sizeTween).start()
 	}
 }
 
-function onWindowResize() {
+function upateCardStyle(cardID, style) {
+	for(const key in style) {
+		if(style.hasOwnProperty(key)) {
+			console.log(key, style)
+			console.log(`cardStatusMap[cardID].htmlElement.style[key] = ${style[key]}px`)
+			cardStatusMap[cardID].htmlElement.style[key] = `${style[key]}px`
+		}
+	}
+	
+}
 
+function onWindowResize() {
 	camera.aspect = document.body.clientWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setSize( document.body.clientWidth, window.innerHeight );
@@ -84,9 +110,10 @@ function initilize() {
 		object.position.y =  - Math.floor(i / 4) * (cardHeight + rowGap) + totalHeight / 2 - cardHeight / 2;
 		console.log(object)
 		scene.add( object );
+		cardStatusMap[card.id].originalStyle = {width: cardWidth, height: cardHeight}
 		cardStatusMap[card.id].originalPosition = {...object.position}
 		cardStatusMap[card.id].css3Object = object
-		// scene.add
+		cardStatusMap[card.id].htmlElement = card
 		i++
 	}
 	console.log(memberCards);
