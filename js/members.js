@@ -3,11 +3,11 @@ var cardStatusMap = {}
 const cardPerRow = 4
 const columnGap = 96
 const rowGap = 48
-let camera;
-let scene;
-let renderer;
+let camera,scene,renderer;
 let cardWidth = 0;
 let cardHeight = 0;
+
+let cardMovingLock = false
 
 function checkAllCardStatus() {
 	for(const key in cardStatusMap) {
@@ -18,11 +18,13 @@ function checkAllCardStatus() {
 }
 
 function cardOnClick(event,target, id) {
-	console.log(event, target ,id, 'onclick')
-	console.log(cardStatusMap)
+	if(cardMovingLock) { 
+		console.log('rejected')
+		return 
+	}
 	const activeCardID = checkAllCardStatus()
 	if(activeCardID) {
-		console.log('cardStatusMap[activeCardID].originalPosition', cardStatusMap[activeCardID].originalPosition)
+		cardMovingLock = true
 		let tween = new TWEEN.Tween(cardStatusMap[activeCardID].css3Object.position)
 		.to(cardStatusMap[activeCardID].originalPosition,1000)
 		.easing( TWEEN.Easing.Exponential.InOut )
@@ -33,15 +35,17 @@ function cardOnClick(event,target, id) {
 		.onUpdate(function() {
 			upateCardStyle(activeCardID, styleForUpdate)
 		})
-		sizeTweenBack.start()
-		tween.start()
+		let tweenChain = sizeTweenBack.chain(tween)
+		tweenChain.onComplete(function() { cardMovingLock =false })
+		tweenChain.start()
+		// sizeTweenBack.onComplete(cardMovingLock = false)
 		cardStatusMap[activeCardID].active = false
 	} else {
-		cardStatusMap[id].active = true
+		cardMovingLock = true
 		let tween=new TWEEN.Tween( target.position )
 		.to( { x:0, y:0, z:300 },1000)
 		.easing( TWEEN.Easing.Exponential.InOut )
-		console.log(`cardStatusMap[id].originalStyle`, cardStatusMap[id].originalStyle)
+		// console.log(`cardStatusMap[id].originalStyle`, cardStatusMap[id].originalStyle)
 		const styleForUpdate = {...cardStatusMap[id].originalStyle}
 		let sizeTween = new TWEEN.Tween(styleForUpdate)
 		.to({ width: 400 }, 500)
@@ -49,15 +53,16 @@ function cardOnClick(event,target, id) {
 		.onUpdate(function(current) {
 			upateCardStyle(id, styleForUpdate)
 		})
-		tween.chain(sizeTween).start()
+		let tweenChain = tween.chain(sizeTween)
+		tweenChain.onComplete(function() { cardMovingLock =false })
+		tweenChain.start()
+		cardStatusMap[id].active = true
 	}
 }
 
 function upateCardStyle(cardID, style) {
 	for(const key in style) {
 		if(style.hasOwnProperty(key)) {
-			console.log(key, style)
-			console.log(`cardStatusMap[cardID].htmlElement.style[key] = ${style[key]}px`)
 			cardStatusMap[cardID].htmlElement.style[key] = `${style[key]}px`
 		}
 	}
@@ -122,5 +127,3 @@ function initilize() {
 }
 
 document.addEventListener("DOMContentLoaded", initilize)
-
-
