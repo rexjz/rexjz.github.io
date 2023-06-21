@@ -5,16 +5,18 @@
     <loc>https://example.org/</loc>
     <lastmod>2020-01-06T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://example.org/research/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/service/</loc>
+  </url><url>
     <loc>https://example.org/posts/</loc>
     <lastmod>2020-01-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/left-sidebar/</loc>
+    <loc>https://example.org/news/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/right-sidebar/</loc>
-  </url><url>
-    <loc>https://example.org/posts/two-sidebar/</loc>
-  </url><url>
-    <loc>https://example.org/no-sidebar/</loc>
+    <loc>https://example.org/team/</loc>
   </url><url>
     <loc>https://example.org/tags/duis-neque/</loc>
     <lastmod>2020-01-06T00:00:00+00:00</lastmod>
@@ -28,10 +30,64 @@
     <loc>https://example.org/posts/sixth/</loc>
     <lastmod>2020-01-06T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://example.org/research/category1/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category2/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://example.org/tags/lorem-ipsum/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://example.org/news/fifth-copy-2/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/news/fifth-copy-3/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/news/fifth-copy-4/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/news/fifth-copy-5/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://example.org/posts/fifth/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-10/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-2/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-3/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-4/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-5/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-6/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-7/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-8/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy-9/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth-copy/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/fifth/</loc>
+    <lastmod>2020-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category2/fifth/</loc>
     <lastmod>2020-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/posts/fourth/</loc>
@@ -40,10 +96,52 @@
     <loc>https://example.org/posts/third/</loc>
     <lastmod>2020-01-03T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://example.org/research/category3/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://example.org/posts/second/</loc>
     <lastmod>2020-01-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://example.org/research/category2/second/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category3/second/</loc>
+    <lastmod>2020-01-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://example.org/posts/first/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-10/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-2/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-3/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-4/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-5/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-6/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-7/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-8/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy-9/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first-copy/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.org/research/category1/first/</loc>
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/tags/content/</loc>

@@ -8,33 +8,39 @@
     <language>en-us</language>
     <copyright>© Untitled. All rights reserved</copyright><atom:link href="https://example.org/tags/sidebar/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Left Sidebar</title>
-      <link>https://example.org/left-sidebar/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Research</title>
+      <link>https://example.org/research/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://example.org/left-sidebar/</guid>
-      <description>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi consequat etiam lorem ipsum dolor sit amet nullam.
-And Yet Another Subheading Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac quam risus, at tempus justo. Sed dictum rutrum massa eu volutpat. Quisque vitae hendrerit sem.</description>
+      <guid>https://example.org/research/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>Right Sidebar</title>
-      <link>https://example.org/right-sidebar/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Category 1 Research Projects</title>
+      <link>https://example.org/research/category1/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://example.org/right-sidebar/</guid>
-      <description>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi consequat etiam lorem ipsum dolor sit amet nullam.
-And Yet Another Subheading Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac quam risus, at tempus justo. Sed dictum rutrum massa eu volutpat. Quisque vitae hendrerit sem.</description>
+      <guid>https://example.org/research/category1/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>Two Sidebar</title>
-      <link>https://example.org/posts/two-sidebar/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Category 2 Research Projects</title>
+      <link>https://example.org/research/category2/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://example.org/posts/two-sidebar/</guid>
-      <description>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus. Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat. Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi consequat etiam lorem ipsum dolor sit amet nullam.
-And Yet Another Subheading Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac quam risus, at tempus justo. Sed dictum rutrum massa eu volutpat. Quisque vitae hendrerit sem.</description>
+      <guid>https://example.org/research/category2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Category 3 Research Projects</title>
+      <link>https://example.org/research/category3/</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.org/research/category3/</guid>
+      <description></description>
     </item>
     
   </channel>
